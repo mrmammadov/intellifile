@@ -1,7 +1,14 @@
 package main
 
-import "intellifile/llm"
+import (
+	"intellifile/cmd/cli"
+	"intellifile/internal/fileops"
+	"intellifile/internal/llm"
+)
 
 func main() {
-	llm.SendChatMessage()
+	path := cli.Execute()
+
+	fileNames := fileops.ReadFolder(path)
+	llm.SendChatAPIMessage(fileNames)
 }
