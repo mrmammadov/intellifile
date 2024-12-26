@@ -8,6 +8,7 @@ The criteria:
 	- Choose meaningful names for folders
 BE as granular as you need to be. I SHOULD BE ABLE TO find what I want in no time!
 All folders SHOULD have the same file type (i.e. csv, pdf, etc.)
+DO NOT USE extension names as the folder names: i.e. CSVs, PDFs, etc.
 Folders may have (not ideally thou) the not so relevant files together, as long as file type matches.
 ONLY RETURN JSON, NO Additional REMARKS, COMMENTS OR ANYTHING.
 `

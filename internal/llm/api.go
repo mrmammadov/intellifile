@@ -41,7 +41,7 @@ func GetResponseFormat() ResponseFormat {
 	}
 }
 
-func CreateChatPayload(fileNames []string) ChatRequest {
+func createChatPayload(fileNames []string) ChatRequest {
 	userPrompt := fmt.Sprintf("List of directories: %s", fileNames)
 	responseFormat := GetResponseFormat()
 	request := ChatRequest{
@@ -89,8 +89,8 @@ func buildRequest(request ChatRequest) *http.Request {
 	return req
 }
 
-func SendChatAPIMessage(fileNames []string) {
-	request := CreateChatPayload(fileNames)
+func SendChatAPIMessage(fileNames []string) string {
+	request := createChatPayload(fileNames)
 	req := buildRequest(request)
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -107,16 +107,5 @@ func SendChatAPIMessage(fileNames []string) {
 	dest := &ResponseObject{}
 	parseChatMessage(bytes, dest)
 
-	var result struct {
-		Folders map[string][]string `json:"folders"`
-	}
-	// fmt.Println(dest.Choices[0].Message.Content)
-	err = json.Unmarshal([]byte(dest.Choices[0].Message.Content), &result)
-	if err != nil {
-		panic(err)
-	}
-
-	for index, value := range result.Folders {
-		fmt.Printf("The Folder Name: %s -  The files: %s\n", index, value)
-	}
+	return dest.Choices[0].Message.Content
 }
